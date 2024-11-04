@@ -6,9 +6,11 @@ export default async function CommunityLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { slug: string };
+  params: { community: string };
 }) {
-  const community = await getCommunity(params?.slug);
+  // Will throw a 404 not found if community does not exist
+  // or the current session is not authorized to view it
+  const community = await getCommunity(params?.community);
 
   return (
     <>
@@ -21,7 +23,7 @@ export default async function CommunityLayout({
           </ul>
         </nav>
       </header>
-      <main>{children}</main>
+      {children}
     </>
   );
 }
